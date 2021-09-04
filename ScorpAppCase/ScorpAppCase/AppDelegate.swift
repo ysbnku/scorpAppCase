@@ -1,0 +1,20 @@
+//
+//  AppDelegate.swift
+//  ScorpAppCase
+//
+//  Created by Yavuz Selim Bitmez on 3.09.2021.
+//
+
+import UIKit
+
+@main
+class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
+    
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Override point for customization after application launch.
+        return true
+    }
+
+}
+
