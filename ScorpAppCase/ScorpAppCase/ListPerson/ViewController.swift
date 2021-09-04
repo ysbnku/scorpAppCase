@@ -82,12 +82,18 @@ class ViewController: UIViewController {
             }else if (error == nil){
                 if(self.increasePage > 0){
                     for person in response!.people{
-                        self.personList?.append(person)
-                        self.isLoading = false
+                        if self.personList!.contains(where: {$0.id == person.id}) {
+                           print("I founded same.")
+                        } else {
+                            self.personList?.append(person)
+                        }
                     }
+                    self.isLoading = false
                 }else {
                     self.personList = response!.people
+                    self.personList = self.removeDuplicateElements(persons: response!.people)
                     self.isLoading = false
+
                 }
                 self.stopLoadingAnimate()
 
@@ -95,6 +101,7 @@ class ViewController: UIViewController {
                 self.refresherButton.isHidden = false
                 self.tableView.isHidden = true
                 self.label.text = error?.errorDescription
+                self.label.textColor = .black
                 print("***Error \(String(describing: error?.errorDescription))")
 
             }
@@ -122,6 +129,16 @@ class ViewController: UIViewController {
         self.refresherButton.isHidden = true
         self.label.isHidden = true
 
+    }
+    
+    func removeDuplicateElements(persons: [Person]) -> [Person] {
+        var uniquePersons = [Person]()
+        for person in persons {
+            if !uniquePersons.contains(where: {$0.id == person.id }) {
+                uniquePersons.append(person)
+            }
+        }
+        return uniquePersons
     }
     
 
